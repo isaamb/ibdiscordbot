@@ -20,7 +20,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 		console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
 		const data = await rest.put(
-			Routes.applicationGuildCommands(clientId),
+			Routes.applicationGuildCommands(clientId, guildId),
 			{ body: commands },
 		);
 
@@ -35,13 +35,4 @@ rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
 	.then((data) => console.log(`Successfully registered ${data.length} application commands.`))
 	.catch(console.error);
 
-//options for slash commands
-const { SlashCommandBuilder } = require('discord.js');
 
-const data = new SlashCommandBuilder()
-	.setName('echo')
-	.setDescription('Replies with your input!')
-	.addStringOption(option =>
-		option.setName('input')
-			.setDescription('The input to echo back')
-			.setRequired(true));
